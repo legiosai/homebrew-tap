@@ -23,11 +23,24 @@ class Quartermaster < Formula
     chmod 0755, bin/"qm"
   end
 
+  # La barra como servicio. brew no deja arrancar nada desde el install (corre en
+  # sandbox), y registrar un agente de arranque sin que nadie lo pida es lo que
+  # se sacó del postinstall de npm. Así queda a un comando que brew mismo imprime
+  # al terminar: `brew services start quartermaster` la muestra ya y en cada
+  # inicio de sesión. PATH con el bin de Homebrew: swiftc está en /usr/bin, pero
+  # la barra llama a qm y launchd no le pasa el PATH del shell.
+  service do
+    run macos: [opt_libexec/"bin/qm-barra"], linux: [opt_libexec/"bin/qm-indicator"]
+    environment_variables PATH: std_service_path_env
+    log_path var/"log/quartermaster.log"
+    error_log_path var/"log/quartermaster.log"
+  end
+
   def caveats
     <<~EOS
       El comando es `qm`. Las superficies gráficas viven en la fórmula:
 
-        #{libexec}/bin/qm-barra        la barra de menú de macOS
+        #{libexec}/bin/qm-barra        la barra de menú de macOS (o `brew services start quartermaster`)
         #{libexec}/bin/qm-indicator    el item de la barra de GNOME
         #{libexec}/bin/qm-web          el tablero en el navegador
 
