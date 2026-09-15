@@ -1,8 +1,8 @@
 class Quartermaster < Formula
   desc "Cuánta cuota te queda en todos tus perfiles de Claude Code, Codex y opencode"
   homepage "https://github.com/legiosai/quartermaster"
-  url "https://github.com/legiosai/quartermaster/archive/refs/tags/v0.1.12.tar.gz"
-  sha256 "4313be5a73ec62bcbda3a4ef2d9c9d73f4caee7de67b5b2e202c48cbfbcf047e"
+  url "https://github.com/legiosai/quartermaster/archive/refs/tags/v0.1.13.tar.gz"
+  sha256 "b2fdcc9522cadbb4917892c960813a5b43bb4d41db252bf8a5604e64259b901b"
   license "MIT"
   head "https://github.com/legiosai/quartermaster.git", branch: "main"
 
