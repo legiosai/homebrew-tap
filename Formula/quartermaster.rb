@@ -1,5 +1,5 @@
 class Quartermaster < Formula
-  desc "Cuánta cuota te queda en todos tus perfiles de Claude Code, Codex y opencode"
+  desc "How much quota is left in every Claude Code, Codex and opencode profile"
   homepage "https://github.com/legiosai/quartermaster"
   url "https://github.com/legiosai/quartermaster/archive/refs/tags/v0.1.23.tar.gz"
   sha256 "9e77cbbc08dcd6840292ead5cb900408e652694f604afb0ebc9369033b2e0b9d"
@@ -38,21 +38,26 @@ class Quartermaster < Formula
 
   def caveats
     <<~EOS
-      El comando es `qm`. Las superficies gráficas viven en la fórmula:
+      The command is `qm`. The graphical surfaces live in the formula:
 
-        #{libexec}/bin/qm-barra        la barra de menú de macOS (o `brew services start quartermaster`)
-        #{libexec}/bin/qm-indicator    el item de la barra de GNOME
-        #{libexec}/bin/qm-web          el tablero en el navegador
+        #{libexec}/bin/qm-barra        the macOS menu bar item (or `brew services start quartermaster`)
+        #{libexec}/bin/qm-indicator    the GNOME top bar item
+        #{libexec}/bin/qm-web          the dashboard in the browser
 
-      El item de GNOME necesita además PyGObject y GTK 3, que no vienen por acá.
+      The GNOME item also needs PyGObject and GTK 3, which do not come from here.
     EOS
   end
 
   test do
     # Sin cuentas en la máquina, qm lo dice y sale con 0: eso es lo que tiene
     # que pasar en el sandbox de brew, donde no hay ningún perfil.
+    #
+    # Desde 0.1.22 la ayuda sale en el idioma del locale, y con un LANG en
+    # inglés el «cuánta cuota te queda» de antes no aparecía: el test fallaba
+    # en casi todas las máquinas. QM_IDIOMA lo fija, sea cual sea el locale.
+    ENV["QM_IDIOMA"] = "en"
     salida = shell_output("#{bin}/qm --help")
-    assert_match "cuánta cuota te queda", salida
+    assert_match "how much quota you have left", salida
     assert_match "\"perfiles\"", shell_output("#{bin}/qm --json --breve")
   end
 end
