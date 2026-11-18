@@ -1,8 +1,8 @@
 class Quartermaster < Formula
   desc "How much quota is left in every Claude Code, Codex and opencode profile"
   homepage "https://github.com/legiosai/quartermaster"
-  url "https://github.com/legiosai/quartermaster/archive/refs/tags/v0.1.29.tar.gz"
-  sha256 "7905106ab0cc083ca4c9a91391a5a8d4fcd71b55b770114d7c2375d027305fee"
+  url "https://github.com/legiosai/quartermaster/archive/refs/tags/v0.1.30.tar.gz"
+  sha256 "a67d6bdb11cb893c10d1ec515ec9c92b09369bda7cdf928ad5776dfc0768a267"
   license "MIT"
   head "https://github.com/legiosai/quartermaster.git", branch: "main"
 
